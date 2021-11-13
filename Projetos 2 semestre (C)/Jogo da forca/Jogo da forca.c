@@ -7,18 +7,27 @@
 #include <ctype.h>
 
 
-void jogo(), desenho(erros), reiniciar();
+void jogo(), desenho(erros), reiniciar(), escolhaRand();
 int erros = 0, nivel = 0, fim = 0, k = 0;
-char palavra[20], letra, palavraB[20], letrasSelecionadas[8];
+char palavra[20], letra, palavraB[20], letrasSelecionadas[20], palavraAleatoria[10][20] = {"celular", "guitarra", "caminhao", "cachorro", "caderno", "televisao", "motocicleta", "armario", "planeta", "canada"};
 
 //Auxiliares
 int aux = 0, aux2 = 0, aux3 = 0;
 
 int main(){
 
-    printf("Seja bem vindo ao jogo da forca, para iniciar, digite uma palavra que sera utilizada para o jogo!\nObs: e necessario no minimo dois jogadores!\n\nPalavra: ");
-    scanf("%s", &palavra);
+    int escolha = 0;
 
+    printf("Seja bem vindo ao jogo da forca, para iniciar, escolha uma das opcoes:\n\n\t(1) - Escolher uma palavra aleatoria (1 jogador)\n\t(2) - Digitar a palavra (2 jogadores)\n\nEscolha: ");
+    scanf("%d", &escolha);
+
+    if(escolha == 1){
+        escolhaRand();
+    }
+    else{
+        printf("\n\nDigite uma palavra que sera utilizada para o jogo!\nObs: e necessario no minimo dois jogadores!\n\nPalavra: ");
+        scanf("%s", &palavra);
+    }
 
     for(int i = 0; i < strlen(palavra); i++){
         palavraB[i] = '_';
@@ -53,10 +62,6 @@ void jogo(){
 
     while(fim != 1){
 
-        if(strcmp(palavra, palavraB) == 0){
-            fim = 1;
-        }
-        
         if(aux == 0){
             aux = 1;
             desenho(erros);
@@ -69,6 +74,7 @@ void jogo(){
 
         printf("\n\nEscolha uma letra: ");
         scanf("%s", &letra);
+        toupper(letra);
 
         for(int i = 0; i <= strlen(palavra); i++){
 
@@ -100,10 +106,9 @@ void jogo(){
         aux2 = 0;
         aux3 = 0;
 
-        if(palavra == palavraB){
+        if(strcmp(palavra, palavraB) == 0){
             fim = 1;
         }
-
     }
 
     //Depois do fim == 1
@@ -226,7 +231,22 @@ void reiniciar(){
     aux = 0; 
     aux2 = 0;
     aux3 = 0;
-    letrasSelecionadas[8] = "";
+
+    for(int i = 0; i < 20; i++){
+        palavraB[i] = "";
+        palavra[i] = "";
+        letrasSelecionadas[i] = "";
+    }
 
     main();
+}
+
+void escolhaRand(){
+
+    strcpy(palavra, palavraAleatoria[rand() % 10]);
+
+    for(int i = 0; i < strlen(palavra); i++){
+        palavraB[i] = '_';
+    }
+
 }

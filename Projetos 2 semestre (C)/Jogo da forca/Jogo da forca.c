@@ -5,32 +5,41 @@
 #include <conio.h>
 #include <windows.h>
 #include <ctype.h>
+#include <mmsystem.h>
 
 
 void jogo(), desenho(erros), reiniciar(), escolhaRand();
 int erros = 0, nivel = 0, fim = 0, k = 0;
-char palavra[20], letra, palavraB[20], letrasSelecionadas[20], palavraAleatoria[10][20] = {"celular", "guitarra", "caminhao", "cachorro", "caderno", "televisao", "motocicleta", "armario", "planeta", "canada"};
+char palavra[20], letra, palavraB[20], letrasSelecionadas[20], palavraAleatoria[10][20] = {"carro de corrida", "guitarra", "caminhao", "cachorro", "caderno", "televisao", "motocicleta", "casa branca", "planeta", "canada"};
+
 
 //Auxiliares
 int aux = 0, aux2 = 0, aux3 = 0;
 
 int main(){
-
     int escolha = 0;
 
-    printf("Seja bem vindo ao jogo da forca, para iniciar, escolha uma das opcoes:\n\n\t(1) - Escolher uma palavra aleatoria (1 jogador)\n\t(2) - Digitar a palavra (2 jogadores)\n\nEscolha: ");
+    printf("Seja bem vindo ao jogo da forca, para iniciar, escolha uma das opcoes:\n\n\t(1) - Escolher uma palavra ou frase aleatoria (1 jogador)\n\t(2) - Digitar uma palavra ou frase (2 jogadores)\n\nEscolha: ");
     scanf("%d", &escolha);
 
     if(escolha == 1){
         escolhaRand();
     }
     else{
+        fflush(stdin);
         printf("\n\nDigite uma palavra que sera utilizada para o jogo!\nObs: e necessario no minimo dois jogadores!\n\nPalavra: ");
-        scanf("%s", &palavra);
+        gets(palavra);
     }
 
+    //Mesmo se a palavra for aleatoria, o codigo passa por esse for
     for(int i = 0; i < strlen(palavra); i++){
-        palavraB[i] = '_';
+
+        if(palavra[i] == ' '){
+            palavraB[i] = ' ';
+        }
+        else{
+            palavraB[i] = '_';
+        }
     }
 
     printf("\n\nAgora selecione o nivel: \n\t(1) - Facil\n\t(2) - Medio\n\t(3) - Dificil\n\n\tNo nivel facil, voce pode errar 7 vezes, na oitava, voce perde!\n\tNo nivel medio, voce pode errar 4 vezes, na quinta, voce perde!\n\tNo nivel dificil, voce pode errar 2 vezes, na terceira, voce perde!\n\nEscolha: ");
@@ -60,6 +69,10 @@ int main(){
 
 void jogo(){
 
+    for(int i = 0; i < strlen(palavra); i++){
+        palavra[i] = toupper(palavra[i]);
+    }
+
     while(fim != 1){
 
         if(aux == 0){
@@ -74,7 +87,7 @@ void jogo(){
 
         printf("\n\nEscolha uma letra: ");
         scanf("%s", &letra);
-        toupper(letra);
+        letra = toupper(letra);
 
         for(int i = 0; i <= strlen(palavra); i++){
 
@@ -222,21 +235,10 @@ void reiniciar(){
     
     system("cls");
 
-    erros = 0; 
-    nivel = 0; 
-    fim = 0;
-    palavra[20] = "";
-    letra;
-    palavraB[20] = "";
-    aux = 0; 
-    aux2 = 0;
-    aux3 = 0;
-
-    for(int i = 0; i < 20; i++){
-        palavraB[i] = "";
-        palavra[i] = "";
-        letrasSelecionadas[i] = "";
-    }
+    memset(letrasSelecionadas, 0, 20);
+    memset(palavra, 0, 20);
+    memset(palavraB, 0, 20);
+    erros = 0, nivel = 0, fim = 0, k = 0;
 
     main();
 }
@@ -246,7 +248,12 @@ void escolhaRand(){
     strcpy(palavra, palavraAleatoria[rand() % 10]);
 
     for(int i = 0; i < strlen(palavra); i++){
-        palavraB[i] = '_';
-    }
 
+        if(palavra[i] == ' '){
+            palavraB[i] = ' ';
+        }
+        else{
+            palavraB[i] = '_';
+        }
+    }
 }

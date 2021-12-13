@@ -8,7 +8,7 @@
 #include <mmsystem.h>
 
 
-void jogo(), desenho(erros), reiniciar(), escolhaRand();
+void jogo(), desenho(erros), reiniciar(), escolhaRand(), errosD();
 int erros = 0, nivel = 0, fim = 0, k = 0;
 char palavra[20], letra, palavraB[20], letrasSelecionadas[20], palavraAleatoria[10][20] = {"carro de corrida", "guitarra", "caminhao", "cachorro", "caderno", "televisao", "motocicleta", "casa branca", "planeta", "canada"};
 
@@ -69,6 +69,7 @@ int main(){
 
 void jogo(){
 
+
     for(int i = 0; i < strlen(palavra); i++){
         palavra[i] = toupper(palavra[i]);
     }
@@ -122,6 +123,7 @@ void jogo(){
         if(strcmp(palavra, palavraB) == 0){
             fim = 1;
         }
+
     }
 
     //Depois do fim == 1
@@ -146,34 +148,35 @@ void desenho(erros){
 
         system("cls");
 
-        if(erros == 0){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            \n|\n|\n|\n|\n|\n|");
+        if(erros <= 0){
+            errosD(0);
         }
         else if(erros == 1){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|\n|\n|\n|\n|\n|");
+            errosD(1);
         }
         else if(erros == 2){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|\n|\n|\n|\n|\n|");
+            errosD(2);
         }
         else if(erros == 3){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|\n|\n|\n|\n|");
+            errosD(3);
         }
         else if(erros == 4){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|\n|\n|\n|");
+            errosD(4);
         }
         else if(erros == 5){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | \n|\n|\n|");
+            errosD(5);
         }
         else if(erros == 6){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|\n|\n|");
+            errosD(6);
         }
         else if(erros == 7){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|           - \n|\n|");
+            errosD(7);
         }
         else if(erros == 8){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|           - -\n|\n|");
+            errosD(8);
             printf("\n\nVoce perdeu, acabaram suas chances. :(\n\nJogo reiniciando...");
             sleep(2);
+            erros = 0;
             reiniciar();
         }
 
@@ -185,25 +188,27 @@ void desenho(erros){
         system("cls");
 
         if(erros == 0){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            \n|\n|\n|\n|\n|\n|");
+            errosD(0);
         }
         else if(erros == 1){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|\n|\n|\n|\n|\n|");
+            errosD(1);
         }
         else if(erros == 2){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|\n|\n|\n|\n|");
+            errosD(3);
         }
         else if(erros == 3){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|\n|\n|\n|");
+            errosD(4);
         }
         else if(erros == 4){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|\n|\n|");
+            errosD(6);
         }
         else if(erros == 5){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|           - -\n|\n|");
+
+            errosD(8);
             
             printf("\n\nVoce perdeu, acabaram suas chances. :(\n\nJogo reiniciando...");
             sleep(2);
+            erros = 0;
             reiniciar();
         }
     }
@@ -213,19 +218,20 @@ void desenho(erros){
         system("cls");
 
         if(erros == 0){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            \n|\n|\n|\n|\n|\n|");
+            errosD(0);
         }
         else if(erros == 1){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|\n|\n|\n|\n|\n|");
+            errosD(1);
         }
         else if(erros == 2){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|\n|\n|\n|");
+            errosD(3);
         }
         else if(erros == 3){
-            printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|           - -\n|\n|");
-            
+            errosD(8);
+
             printf("\n\nVoce perdeu, acabaram suas chances. :(\n\nJogo reiniciando...");
             sleep(2);
+            erros = 0;
             reiniciar();
         }
     }
@@ -239,6 +245,10 @@ void reiniciar(){
     memset(palavra, 0, 20);
     memset(palavraB, 0, 20);
     erros = 0, nivel = 0, fim = 0, k = 0;
+    aux = 0;
+    aux2 = 0;
+    aux3 = 0;
+
 
     main();
 }
@@ -255,5 +265,47 @@ void escolhaRand(){
         else{
             palavraB[i] = '_';
         }
+    }
+}
+
+void errosD(erros){
+
+    switch(erros){
+
+        case 0:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            \n|\n|\n|\n|\n|\n|");
+        break;
+
+        case 1:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|\n|\n|\n|\n|\n|");
+        break;
+
+        case 2:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|\n|\n|\n|\n|\n|");
+        break;
+
+        case 3:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|\n|\n|\n|\n|");
+        break;
+
+        case 4:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|\n|\n|\n|");
+        break;
+
+        case 5:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | \n|\n|\n|");
+        break;
+
+        case 6:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|\n|\n|");
+        break;
+
+        case 7:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|           - \n|\n|");
+        break;
+
+        case 8:
+        printf("|-------------\n|            |\n|            |\n|            |\n|            O\n|          --|--\n|            |\n|           | |\n|           - -\n|\n|");
+        break;
     }
 }
